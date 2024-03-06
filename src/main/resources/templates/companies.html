@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<th:block th:insert="~{/fragment/headerFragment::userInfo}"/>
+
+Companies page | <a th:if="${currentUser != null && currentUser.userRole.name() == 'ADMIN'}" href="/add/company">Add
+    company</a>
+<table>
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>address</th>
+        <th>employees list</th>
+        <th>user name</th>
+        <th>opened Date</th>
+        <th>categories</th>
+        <th>delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="company : ${companies}">
+        <td th:text="${company.id}"></td>
+        <td th:text="${company.name}"></td>
+        <td th:text="${company.address}"></td>
+        <td>
+            <ul>
+                <Li th:each="employee: ${company.employeeList}" th:text="${employee.name}"></Li>
+            </ul>
+        </td>
+        <td>
+            <span th:if="${company.user != null}" th:text="${company.user.name}"> </span>
+        </td>
+        <td>
+            <span th:text="${#dates.format(company.getOpenedDate(), 'dd-MMM-yyyy')}"></span>
+        </td>
+        <td>
+            <span th:each="category: ${company.categories}" th:text="${category.name}"></span>
+        </td>
+        <td><a th:href="@{'/companies/delete/'+ ${company.id}}">Delete</a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

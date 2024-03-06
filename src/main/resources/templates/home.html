@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <th:block th:include="/fragment/headerFragment::import" />
+</head>
+<body>
+<th:block th:insert="~{/fragment/headerFragment::userInfo}" />
+<a th:if="${currentUser == null}" href="loginPage">Login</a><br>
+<a href="/companies">Companies</a> | <a href="/employees">Employees</a>
+<a href="user/register">Registration</a>
+</body>
+</html>
